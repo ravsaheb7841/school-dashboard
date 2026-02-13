@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Results - School Management Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-book"></i> School Dashboard
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="students.html">Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teachers.html">Teachers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="classes.html">Classes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid py-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1>Exam Results</h1>
+                <p class="text-muted">View and manage student exam results</p>
+            </div>
+        </div>
+
+        <!-- Alert Container -->
+        <div id="alertContainer"></div>
+
+        <!-- Filter Options -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <label for="filterExamClass" class="form-label">Filter by Class</label>
+                <select class="form-select" id="filterExamClass">
+                    <option selected>All Classes</option>
+                    <option>Grade 9A</option>
+                    <option>Grade 9B</option>
+                    <option>Grade 10A</option>
+                    <option>Grade 10B</option>
+                    <option>Grade 11A</option>
+                    <option>Grade 11C</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="filterExam" class="form-label">Filter by Exam</label>
+                <select class="form-select" id="filterExam">
+                    <option selected>All Exams</option>
+                    <option>Midterm 2026</option>
+                    <option>Final 2025</option>
+                    <option>Midterm 2025</option>
+                    <option>Practical 2026</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label>&nbsp;</label>
+                <button class="btn btn-primary w-100" onclick="filterResults()">Apply Filter</button>
+            </div>
+        </div>
+
+        <!-- Results Table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="resultsTable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Student ID</th>
+                                        <th>Student Name</th>
+                                        <th>Class</th>
+                                        <th>Subject</th>
+                                        <th>Exam Type</th>
+                                        <th>Marks Obtained</th>
+                                        <th>Total Marks</th>
+                                        <th>Percentage</th>
+                                        <th>Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>Ahmed Hassan</td>
+                                        <td>Grade 10A</td>
+                                        <td>Mathematics</td>
+                                        <td>Midterm 2026</td>
+                                        <td>85</td>
+                                        <td>100</td>
+                                        <td>85%</td>
+                                        <td><span class="badge bg-success">A</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>Ahmed Hassan</td>
+                                        <td>Grade 10A</td>
+                                        <td>English</td>
+                                        <td>Midterm 2026</td>
+                                        <td>78</td>
+                                        <td>100</td>
+                                        <td>78%</td>
+                                        <td><span class="badge bg-info">B+</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>002</td>
+                                        <td>Fatima Khan</td>
+                                        <td>Grade 9B</td>
+                                        <td>Science</td>
+                                        <td>Midterm 2026</td>
+                                        <td>92</td>
+                                        <td>100</td>
+                                        <td>92%</td>
+                                        <td><span class="badge bg-success">A+</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>002</td>
+                                        <td>Fatima Khan</td>
+                                        <td>Grade 9B</td>
+                                        <td>History</td>
+                                        <td>Midterm 2026</td>
+                                        <td>88</td>
+                                        <td>100</td>
+                                        <td>88%</td>
+                                        <td><span class="badge bg-success">A</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>003</td>
+                                        <td>Ali Mohammed</td>
+                                        <td>Grade 11C</td>
+                                        <td>Biology</td>
+                                        <td>Midterm 2026</td>
+                                        <td>76</td>
+                                        <td>100</td>
+                                        <td>76%</td>
+                                        <td><span class="badge bg-warning text-dark">B</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>003</td>
+                                        <td>Ali Mohammed</td>
+                                        <td>Grade 11C</td>
+                                        <td>Chemistry</td>
+                                        <td>Midterm 2026</td>
+                                        <td>82</td>
+                                        <td>100</td>
+                                        <td>82%</td>
+                                        <td><span class="badge bg-success">A</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>004</td>
+                                        <td>Zainab Ahmed</td>
+                                        <td>Grade 10A</td>
+                                        <td>Mathematics</td>
+                                        <td>Midterm 2026</td>
+                                        <td>65</td>
+                                        <td>100</td>
+                                        <td>65%</td>
+                                        <td><span class="badge bg-danger">C</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>004</td>
+                                        <td>Zainab Ahmed</td>
+                                        <td>Grade 10A</td>
+                                        <td>English</td>
+                                        <td>Midterm 2026</td>
+                                        <td>72</td>
+                                        <td>100</td>
+                                        <td>72%</td>
+                                        <td><span class="badge bg-warning text-dark">B</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>005</td>
+                                        <td>Omar Ibrahim</td>
+                                        <td>Grade 12A</td>
+                                        <td>Physics</td>
+                                        <td>Final 2025</td>
+                                        <td>89</td>
+                                        <td>100</td>
+                                        <td>89%</td>
+                                        <td><span class="badge bg-success">A</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>005</td>
+                                        <td>Omar Ibrahim</td>
+                                        <td>Grade 12A</td>
+                                        <td>Mathematics</td>
+                                        <td>Final 2025</td>
+                                        <td>91</td>
+                                        <td>100</td>
+                                        <td>91%</td>
+                                        <td><span class="badge bg-success">A+</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grade Distribution -->
+        <div class="row mt-4">
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h6 class="card-title text-muted">Grade A+</h6>
+                        <h2 class="text-success">12</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h6 class="card-title text-muted">Grade A</h6>
+                        <h2 class="text-info">28</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h6 class="card-title text-muted">Grade B</h6>
+                        <h2 class="text-warning">18</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h6 class="card-title text-muted">Grade C or Below</h6>
+                        <h2 class="text-danger">5</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <p>&copy; 2026 School Management Dashboard. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
