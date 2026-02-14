@@ -6,16 +6,22 @@ A responsive School Management System built using HTML5, CSS3, Bootstrap 5, and 
 
 ## 📂 Project Structure
 
+```
 school-dashboard/
-├── assets/images/college.png
+├── assets/
+│   └── images/
+│       └── college.png
 ├── index.html
 ├── students.html
 ├── teachers.html
 ├── classes.html
 ├── attendance.html
 ├── results.html
-├── css/style.css
-└── js/script.js
+├── css/
+│   └── style.css
+└── js/
+    └── script.js
+```
 
 ---
 
