@@ -1,39 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachers - School Management Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-book"></i> School Dashboard
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-mortarboard-fill me-2"></i>School Dashboard
             </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Dashboard</a>
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Home
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="students.html">Students</a>
+                        <a class="nav-link" href="students.html">
+                            <i class="bi bi-people me-1"></i>Students
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link active" href="teachers.html">Teachers</a>
+                        <a class="nav-link active" href="teachers.html">
+                            <i class="bi bi-person-check me-1"></i>Teachers
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="classes.html">Classes</a>
+                        <a class="nav-link" href="classes.html">
+                            <i class="bi bi-book me-1"></i>Classes
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                        <a class="nav-link" href="attendance.html">
+                            <i class="bi bi-calendar-check me-1"></i>Attendance
+                        </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="results.html">
+                            <i class="bi bi-bar-chart-line me-1"></i>Results
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -62,102 +89,113 @@
 
         <!-- Teachers Table -->
         <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover" id="teachersTable">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Department</th>
-                                        <th>Qualification</th>
-                                        <th>Joining Date</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>T001</td>
-                                        <td>Dr. Mahmoud Ahmed</td>
-                                        <td>mahmoud@school.com</td>
-                                        <td>+1-555-1001</td>
-                                        <td>Mathematics</td>
-                                        <td>M.Sc. Mathematics</td>
-                                        <td>2020-08-15</td>
-                                        <td><span class="badge bg-success">Active</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-warning" onclick="editTeacher('T001')">Edit</button>
-                                            <button class="btn btn-sm btn-danger" onclick="deleteTeacher('T001', 'Dr. Mahmoud Ahmed')">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>T002</td>
-                                        <td>Aisha Khan</td>
-                                        <td>aisha@school.com</td>
-                                        <td>+1-555-1002</td>
-                                        <td>English</td>
-                                        <td>B.A. English Literature</td>
-                                        <td>2021-09-01</td>
-                                        <td><span class="badge bg-success">Active</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-warning" onclick="editTeacher('T002')">Edit</button>
-                                            <button class="btn btn-sm btn-danger" onclick="deleteTeacher('T002', 'Aisha Khan')">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>T003</td>
-                                        <td>Hassan Ali</td>
-                                        <td>hassan@school.com</td>
-                                        <td>+1-555-1003</td>
-                                        <td>Science</td>
-                                        <td>M.Sc. Physics</td>
-                                        <td>2019-08-20</td>
-                                        <td><span class="badge bg-success">Active</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-warning" onclick="editTeacher('T003')">Edit</button>
-                                            <button class="btn btn-sm btn-danger" onclick="deleteTeacher('T003', 'Hassan Ali')">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>T004</td>
-                                        <td>Noor Ibrahim</td>
-                                        <td>noor@school.com</td>
-                                        <td>+1-555-1004</td>
-                                        <td>History</td>
-                                        <td>B.A. History</td>
-                                        <td>2022-01-10</td>
-                                        <td><span class="badge bg-success">Active</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-warning" onclick="editTeacher('T004')">Edit</button>
-                                            <button class="btn btn-sm btn-danger" onclick="deleteTeacher('T004', 'Noor Ibrahim')">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>T005</td>
-                                        <td>Dr. Ahmed Saleh</td>
-                                        <td>asaleh@school.com</td>
-                                        <td>+1-555-1005</td>
-                                        <td>Biology</td>
-                                        <td>Ph.D. Biology</td>
-                                        <td>2018-06-15</td>
-                                        <td><span class="badge bg-warning text-dark">On Leave</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-warning" onclick="editTeacher('T005')">Edit</button>
-                                            <button class="btn btn-sm btn-danger" onclick="deleteTeacher('T005', 'Dr. Ahmed Saleh')">Delete</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="teachersTable">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Department</th>
+                                <th>Qualification</th>
+                                <th>Joining Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>T001</td>
+                                <td>Dr. William Thompson</td>
+                                <td>w.thompson@school.com</td>
+                                <td>+1-555-210-1001</td>
+                                <td>Mathematics</td>
+                                <td>Ph.D. Mathematics</td>
+                                <td>2020-08-15</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"
+                                        onclick="editTeacher('T001')">Edit</button>
+                                    <button class="btn btn-sm btn-danger"
+                                        onclick="deleteTeacher('T001', 'Dr. William Thompson')">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>T002</td>
+                                <td>Jennifer Miller</td>
+                                <td>j.miller@school.com</td>
+                                <td>+1-555-210-1002</td>
+                                <td>English</td>
+                                <td>M.A. English Literature</td>
+                                <td>2021-09-01</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"
+                                        onclick="editTeacher('T002')">Edit</button>
+                                    <button class="btn btn-sm btn-danger"
+                                        onclick="deleteTeacher('T002', 'Jennifer Miller')">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>T003</td>
+                                <td>Christopher Johnson</td>
+                                <td>c.johnson@school.com</td>
+                                <td>+1-555-210-1003</td>
+                                <td>Physics</td>
+                                <td>M.Sc. Physics</td>
+                                <td>2019-08-20</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"
+                                        onclick="editTeacher('T003')">Edit</button>
+                                    <button class="btn btn-sm btn-danger"
+                                        onclick="deleteTeacher('T003', 'Christopher Johnson')">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>T004</td>
+                                <td>Sarah Williams</td>
+                                <td>s.williams@school.com</td>
+                                <td>+1-555-210-1004</td>
+                                <td>History</td>
+                                <td>B.A. History</td>
+                                <td>2022-01-10</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"
+                                        onclick="editTeacher('T004')">Edit</button>
+                                    <button class="btn btn-sm btn-danger"
+                                        onclick="deleteTeacher('T004', 'Sarah Williams')">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>T005</td>
+                                <td>Dr. Emily Brown</td>
+                                <td>e.brown@school.com</td>
+                                <td>+1-555-210-1005</td>
+                                <td>Biology</td>
+                                <td>Ph.D. Biology</td>
+                                <td>2018-06-15</td>
+                                <td><span class="badge bg-warning text-dark">On Leave</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"
+                                        onclick="editTeacher('T005')">Edit</button>
+                                    <button class="btn btn-sm btn-danger"
+                                        onclick="deleteTeacher('T005', 'Dr. Emily Brown')">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
     </div>
 
     <!-- Add Teacher Modal -->
@@ -197,7 +235,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="teacherQual" class="form-label">Qualification</label>
-                            <input type="text" class="form-control" id="teacherQual" placeholder="e.g., M.Sc. Mathematics" required>
+                            <input type="text" class="form-control" id="teacherQual"
+                                placeholder="e.g., M.Sc. Mathematics" required>
                         </div>
                     </form>
                 </div>
@@ -217,4 +256,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
+
 </html>

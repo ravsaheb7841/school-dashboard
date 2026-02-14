@@ -1,7 +1,3 @@
-// ==========================================
-// School Management Dashboard - JavaScript
-// ==========================================
-
 // Alert Container Function
 function showAlert(message, type) {
     const alertContainer = document.getElementById('alertContainer');
@@ -9,10 +5,10 @@ function showAlert(message, type) {
 
     const alertId = 'alert-' + Date.now();
     const alertHTML = `
-        <div id="${alertId}" class="alert alert-${type}" role="alert">
+        <div id="${alertId}" class="alert alert-${type}" role="alert" aria-live="polite">
             <div class="d-flex justify-content-between align-items-center">
-                <span>${message}</span>
-                <span class="alert-close-btn" onclick="closeAlert('${alertId}')">&times;</span>
+                <span>${escapeHtml(message)}</span>
+                <button type="button" class="alert-close-btn" onclick="closeAlert('${alertId}')" aria-label="Close alert">&times;</button>
             </div>
         </div>
     `;
@@ -25,6 +21,13 @@ function showAlert(message, type) {
     }, 5000);
 }
 
+// Helper function to escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 function closeAlert(alertId) {
     const alert = document.getElementById(alertId);
     if (alert) {
@@ -35,9 +38,7 @@ function closeAlert(alertId) {
     }
 }
 
-// ==========================================
 // Student Management Functions
-// ==========================================
 
 function addStudent() {
     const name = document.getElementById('studentName').value;
@@ -60,9 +61,9 @@ function addStudent() {
     }
 
     // Validate phone format
-    const phoneRegex = /^[\d\s\-\+\(\)]+$/;
-    if (!phoneRegex.test(phone) || phone.length < 10) {
-        showAlert('Please enter a valid phone number!', 'danger');
+    const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+    if (!phoneRegex.test(phone)) {
+        showAlert('Please enter a valid phone number (minimum 10 digits)!', 'danger');
         return;
     }
 
@@ -77,9 +78,12 @@ function addStudent() {
     modal.hide();
 
     // Add to table (simulated)
-    const table = document.getElementById('studentsTable').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
-    const studentId = '00' + (table.rows.length);
+    const table = document.getElementById('studentsTable');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    if (!tbody) return;
+    
+    const newRow = tbody.insertRow();
+    const studentId = String(tbody.rows.length + 1).padStart(3, '0');
     const formattedDob = new Date(dob).toISOString().split('T')[0];
 
     newRow.innerHTML = `
@@ -100,6 +104,7 @@ function addStudent() {
 
 function editStudent(studentId) {
     showAlert(`Edit functionality for Student ${studentId} - Coming Soon!`, 'info');
+    // TODO: Implement edit functionality
 }
 
 function deleteStudent(studentId, studentName) {
@@ -107,19 +112,19 @@ function deleteStudent(studentId, studentName) {
         showAlert(`Student "${studentName}" has been deleted successfully!`, 'success');
         // Simulated delete - in real app would remove from table
         const table = document.getElementById('studentsTable');
-        for (let i = 1; i < table.rows.length; i++) {
-            if (table.rows[i].cells[0].textContent === studentId) {
-                table.deleteRow(i);
-                break;
+        const tbody = table.getElementsByTagName('tbody')[0];
+        if (tbody) {
+            for (let i = 0; i < tbody.rows.length; i++) {
+                if (tbody.rows[i].cells[0].textContent.trim() === String(studentId).trim()) {
+                    tbody.deleteRow(i);
+                    break;
+                }
             }
         }
     }
 }
 
-// ==========================================
 // Teacher Management Functions
-// ==========================================
-
 function addTeacher() {
     const name = document.getElementById('teacherName').value;
     const email = document.getElementById('teacherEmail').value;
@@ -151,9 +156,12 @@ function addTeacher() {
     modal.hide();
 
     // Add to table (simulated)
-    const table = document.getElementById('teachersTable').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
-    const teacherId = 'T' + (table.rows.length + 5);
+    const table = document.getElementById('teachersTable');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    if (!tbody) return;
+    
+    const newRow = tbody.insertRow();
+    const teacherId = 'T' + String(tbody.rows.length + 5).padStart(3, '0');
 
     newRow.innerHTML = `
         <td>${teacherId}</td>
@@ -173,6 +181,7 @@ function addTeacher() {
 
 function editTeacher(teacherId) {
     showAlert(`Edit functionality for Teacher ${teacherId} - Coming Soon!`, 'info');
+    // TODO: Implement edit functionality
 }
 
 function deleteTeacher(teacherId, teacherName) {
@@ -180,19 +189,19 @@ function deleteTeacher(teacherId, teacherName) {
         showAlert(`Teacher "${teacherName}" has been deleted successfully!`, 'success');
         // Simulated delete
         const table = document.getElementById('teachersTable');
-        for (let i = 1; i < table.rows.length; i++) {
-            if (table.rows[i].cells[0].textContent === teacherId) {
-                table.deleteRow(i);
-                break;
+        const tbody = table.getElementsByTagName('tbody')[0];
+        if (tbody) {
+            for (let i = 0; i < tbody.rows.length; i++) {
+                if (tbody.rows[i].cells[0].textContent.trim() === String(teacherId).trim()) {
+                    tbody.deleteRow(i);
+                    break;
+                }
             }
         }
     }
 }
 
-// ==========================================
 // Class Management Functions
-// ==========================================
-
 function addClass() {
     const className = document.getElementById('className').value;
     const teacher = document.getElementById('classTeacher').value;
@@ -224,6 +233,7 @@ function addClass() {
 
 function editClass(className) {
     showAlert(`Edit functionality for ${className} - Coming Soon!`, 'info');
+    // TODO: Implement edit functionality
 }
 
 function deleteClass(className) {
@@ -232,10 +242,7 @@ function deleteClass(className) {
     }
 }
 
-// ==========================================
 // Attendance and Results Functions
-// ==========================================
-
 function filterAttendance() {
     const filterClass = document.getElementById('filterClass').value;
     const filterMonth = document.getElementById('filterMonth').value;
@@ -250,76 +257,62 @@ function filterResults() {
     showAlert(`Filtering results for ${filterClass} - ${filterExam}`, 'info');
 }
 
-// ==========================================
-// Logout Function
-// ==========================================
-
-function logout() {
-    if (confirm('Are you sure you want to logout?')) {
-        showAlert('You have been logged out successfully!', 'success');
-        setTimeout(() => {
-            // Redirect to login page (if exists) or home
-            window.location.href = 'index.html';
-        }, 1500);
-    }
-}
-
-// ==========================================
 // Page Initialization
-// ==========================================
-
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Dashboard loaded successfully!');
-    
-    // Add any additional initialization code here
-    // For example, load data from API, set up event listeners, etc.
+    // initialize validation and page transitions
+    initializeFormValidation();
+    initPageTransitions();
 });
 
-// ==========================================
-// Form Validation Helper
-// ==========================================
-
-function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+function initializeFormValidation() {
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                showAlert('Please fill in all required fields correctly!', 'danger');
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
 }
 
-function validatePhone(phone) {
-    const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
-    return phoneRegex.test(phone);
+// Page transition: intercept internal link clicks, animate out, then navigate
+function initPageTransitions() {
+    const duration = 300; // should match CSS --page-transition-duration
+
+    // animate in
+    document.body.classList.add('page-enter');
+    requestAnimationFrame(() => {
+        document.body.classList.add('page-enter-active');
+        document.body.classList.remove('page-enter');
+    });
+
+    // delegate clicks on links
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+
+        // skip external links, anchors, mailto, JS links, and bootstrap toggles
+        const href = link.getAttribute('href');
+        const target = link.getAttribute('target');
+        if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) return;
+        if (target === '_blank' || link.hasAttribute('data-bs-toggle')) return;
+
+        // only handle internal .html page navigation
+        const isInternalHtml = href.endsWith('.html') || href === '';
+        if (!isInternalHtml) return;
+
+        // perform animated navigation
+        e.preventDefault();
+        document.body.classList.add('page-exit');
+        // force reflow then add active class
+        void document.body.offsetWidth;
+        document.body.classList.add('page-exit-active');
+
+        setTimeout(() => {
+            window.location.href = href;
+        }, duration);
+    }, {capture: true});
 }
-
-function validateForm(formData) {
-    for (let field in formData) {
-        if (!formData[field]) {
-            return false;
-        }
-    }
-    return true;
-}
-
-// ==========================================
-// Utility Functions
-// ==========================================
-
-function formatDate(date) {
-    return new Date(date).toISOString().split('T')[0];
-}
-
-function getCurrentDate() {
-    return formatDate(new Date());
-}
-
-function getRandomId() {
-    return Math.floor(Math.random() * 10000);
-}
-
-// Prevent form submission on Enter key when not intended
-document.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
-        if (event.target.classList.contains('form-control') || 
-            event.target.classList.contains('form-select')) {
-            // Allow form submission or prevent if needed
-        }
-    }
-});
